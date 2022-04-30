@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+<LinearLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/Theme_bg">
+    <soup.neumorphism.NeumorphCardView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:neumorph_shapeType="basin"
+        android:layout_margin="8dp"
+        app:neumorph_strokeColor="@color/skin"
+        app:neumorph_strokeWidth="3dp"
+        app:neumorph_shadowElevation="4dp"
+        >
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_playlist"
+            app:startIconTint="@color/skin"
+            app:boxStrokeColor="@color/skin"
+            android:hint="Playlist name"
+            app:boxStrokeWidth="3dp"
+            android:textColorHint="@color/text_color"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+            <EditText
+                android:id="@+id/playList_name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:inputType="text"
+                android:singleLine="true"
+                android:maxLength="40"
+                android:background="@color/Theme_bg"
+                android:textColor="@color/text_color"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </soup.neumorphism.NeumorphCardView>
+
+        <soup.neumorphism.NeumorphCardView
+           android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:neumorph_shapeType="basin"
+            android:layout_margin="8dp"
+            app:neumorph_strokeColor="@color/skin"
+            app:neumorph_strokeWidth="3dp"
+            app:neumorph_shadowElevation="4dp"
+            >
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:startIconDrawable="@drawable/ic_person"
+                app:startIconTint="@color/skin"
+                app:boxStrokeColor="@color/skin"
+                android:hint="Your Name"
+                app:boxStrokeWidth="3dp"
+                android:textColorHint="@color/text_color"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+            <EditText
+                android:id="@+id/playList_creator_name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:inputType="text"
+                android:singleLine="true"
+                android:maxLength="40"
+                android:background="@color/Theme_bg"
+                android:textColor="@color/text_color"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </soup.neumorphism.NeumorphCardView>
+
+
+</LinearLayout>
+</layout>

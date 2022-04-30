@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/Theme_bg"
+    android:orientation="vertical">
+
+
+    <soup.neumorphism.NeumorphCardView
+        android:layout_width="160dp"
+        android:layout_height="180dp"
+        android:padding="15dp"
+        >
+        <com.github.siyamed.shapeimageview.RoundedImageView
+            android:id="@+id/album_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/music"
+            app:siRadius="20dp"
+
+            />
+    </soup.neumorphism.NeumorphCardView>
+    <TextView
+        android:id="@+id/album_name"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:text="Albums"
+        android:textColor="@color/text_color"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        />
+
+</LinearLayout>

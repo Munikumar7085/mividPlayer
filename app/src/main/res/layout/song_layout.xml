@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/Theme_bg"
+   >
+    <soup.neumorphism.NeumorphCardView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/song_img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+
+                android:layout_alignParentStart="true"
+                android:src="@drawable/music"
+                app:shapeAppearanceOverlay="@style/rounded"
+
+                android:layout_margin="5dp"
+
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/song_img"
+                android:layout_toStartOf="@id/duration"
+                android:orientation="vertical"
+                android:weightSum="2"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                >
+                <TextView
+                    android:id="@+id/song_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="song Name"
+                    android:gravity="bottom"
+                    android:textColor="#041F1E"
+                    android:singleLine="true"
+                    android:textSize="16sp"
+                    />
+                <TextView
+                    android:id="@+id/song_album"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="song Name"
+                    android:gravity="bottom"
+                    android:textColor="@color/small_text_color"
+                    android:textSize="14sp"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/duration"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:text="00:00"
+                android:textColor="@color/small_text_color" />
+        </RelativeLayout>
+    </soup.neumorphism.NeumorphCardView>
+
+</RelativeLayout>
+    </layout>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/Theme_bg"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+                <soup.neumorphism.NeumorphImageButton
+                    android:id="@+id/back_from_sign_up"
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_back_arrow"
+                    app:neumorph_shadowElevation="3dp" />
+
+
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_width="120dp"
+                    android:layout_height="150dp"
+                    android:layout_centerInParent="true"
+                    >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/Theme_bg"
+                        android:src="@drawable/ic_union"
+                        />
+                </soup.neumorphism.NeumorphCardView>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/welcome_sign_in_txt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="190dp"
+                android:text="Create \nAccount"
+                android:textAppearance="@style/welcome_to"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/sign_up_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/welcome_sign_in_txt"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                >
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+                    app:neumorph_shadowElevation="3dp"
+                    >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                    <soup.neumorphism.NeumorphImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_person"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="5dp"
+                        />
+
+                    <EditText
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="35dp"
+                        android:background="@null"
+                        android:hint="User Name"
+                        android:textAppearance="@style/skip"
+                        android:textColorHint="#6D81A1" />
+
+                </RelativeLayout>
+                </soup.neumorphism.NeumorphCardView>
+
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+                    app:neumorph_shadowElevation="3dp"
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+                        <soup.neumorphism.NeumorphImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_mail"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="5dp"
+                            />
+
+                        <EditText
+
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="35dp"
+                            android:background="@null"
+                            android:hint="Emali ID"
+                            android:textAppearance="@style/skip"
+                            android:textColorHint="#6D81A1" />
+
+                    </RelativeLayout>
+
+                </soup.neumorphism.NeumorphCardView>
+                <soup.neumorphism.NeumorphCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+                    app:neumorph_shadowElevation="3dp"
+
+                    >
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+                        <soup.neumorphism.NeumorphImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_password"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="5dp"
+                            />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="35dp"
+
+                            android:background="@null"
+                            android:hint="Password"
+                            android:textAppearance="@style/skip"
+                            android:textColorHint="#6D81A1" />
+                        <soup.neumorphism.NeumorphImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_reveal_password"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="5dp"
+                            />
+                        <soup.neumorphism.NeumorphImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_visibility_on"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="5dp"
+                            android:visibility="gone"
+                            />
+
+
+                    </RelativeLayout>
+                </soup.neumorphism.NeumorphCardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    >
+                    <soup.neumorphism.NeumorphCardView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+                        app:neumorph_shadowElevation="3dp"
+                        >
+
+                        <CheckBox
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            />
+
+
+                    </soup.neumorphism.NeumorphCardView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                       android:textAppearance="@style/the_background"
+                        android:gravity="center_vertical"
+                        android:text="@string/i_agree_to_the_terms_conditions_nand_privacy_policy"
+                        />
+                </LinearLayout>
+
+
+
+
+
+
+                <soup.neumorphism.NeumorphButton
+                    style="@style/Widget.Neumorph.CardView"
+                    android:id="@+id/sign_up_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:gravity="center"
+                    android:text="Sign Up"
+                    android:textSize="20sp"
+                    android:textAppearance="@style/don_t_have"
+                    android:textColor="#F9B9B0"
+                    app:neumorph_shadowElevation="3dp"
+
+                    app:neumorph_shapeAppearance="@style/CustomShapeAppearance"
+                    android:textStyle="bold"
+
+                    />
+
+                <soup.neumorphism.NeumorphButton
+                    android:id="@+id/sign_up_with_google"
+                    style="@style/Widget.Neumorph.Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    app:neumorph_shadowElevation="3dp"
+                    android:text="sign up with google"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:textAppearance="@style/don_t_have"
+                    android:textColor="#6D81A1"
+                    android:drawableStart="@drawable/ic_google__g__logo_1"
+                    android:paddingLeft="20dp"
+                    android:textStyle="bold"
+                    app:neumorph_shapeAppearance="@style/CustomShapeAppearance" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text=" \?Already have an account"
+                        android:textColor=" #6D81A1"
+                        android:layout_weight="75"
+                        android:textAlignment="viewEnd"
+                        android:textAppearance="@style/don_t_have"
+                        android:textDirection="rtl"
+                        android:textSize="18sp"
+                        />
+                    <TextView
+                        android:id="@+id/sign_in_btn_from_sign_up_page"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="sign in"
+                        android:layout_weight="25"
+                        android:textColor="#F9B9B0"
+                        android:textAppearance="@style/don_t_have"
+                        android:textSize="18sp"
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+</layout>

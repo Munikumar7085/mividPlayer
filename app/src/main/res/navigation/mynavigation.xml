@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mynavigation"
+    app:startDestination="@id/enjoyMusicFragment">
+
+    <fragment
+        android:id="@+id/enjoyMusicFragment"
+        android:name="com.example.mividplayer.fragments.startupslides.EnjoyMusicFragment"
+        android:label="EnjoyMusicFragment"
+        tools:layout="@layout/fragment_enjoy_music"
+        >
+        <action
+            android:id="@+id/action_enjoyMusicFragment_to_noAdsFragment"
+            app:destination="@id/noAdsFragment" />
+        <action
+            android:id="@+id/action_enjoyMusicFragment_to_mainViewFragment"
+            app:destination="@id/mainViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/noAdsFragment"
+        android:name="com.example.mividplayer.fragments.startupslides.NoAdsFragment"
+        android:label="NoAdsFragment"
+        tools:layout="@layout/fragment_no_ads">
+        <action
+            android:id="@+id/action_noAdsFragment_to_sharePlaylistFragment"
+            app:destination="@id/sharePlaylistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sharePlaylistFragment"
+        android:name="com.example.mividplayer.fragments.startupslides.SharePlaylistFragment"
+        android:label="SharePlaylistFragment"
+        tools:layout="@layout/fragment_share_playlist">
+        <action
+            android:id="@+id/action_sharePlaylistFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.mividplayer.fragments.details.SignInFragment"
+        android:label="SignInFragment"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_mainViewFragment"
+            app:destination="@id/mainViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.mividplayer.fragments.details.SignUpFragment"
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_mainViewFragment"
+            app:destination="@id/mainViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.example.mividplayer.fragments.details.ForgotPasswordFragment"
+        android:label="ForgotPasswordFragment"
+        tools:layout="@layout/fragment_forgot_password"/>
+    <fragment
+        android:id="@+id/mainViewFragment"
+        android:name="com.example.mividplayer.fragments.home.MainViewFragment"
+        android:label="MainViewFragment"
+        tools:layout="@layout/fragment_main_view">
+        <action
+            android:id="@+id/action_mainViewFragment_to_songPlayingFragment"
+            app:destination="@id/songPlayingFragment" />
+        <argument
+            android:name="fragment"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_mainViewFragment_to_playListSongsFragment"
+            app:destination="@id/playListSongsFragment" />
+        <action
+            android:id="@+id/action_mainViewFragment_to_albumsListFragment"
+            app:destination="@id/albumsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/songPlayingFragment"
+        android:name="com.example.mividplayer.fragments.playsong.SongPlayingFragment"
+        android:label="SongPlayingFragment"
+        tools:layout="@layout/fragment_song_playing">
+        <argument
+            android:name="index"
+            app:argType="string" />
+        <argument
+            android:name="address"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_songPlayingFragment_to_mainViewFragment"
+            app:destination="@id/mainViewFragment" />
+        <action
+            android:id="@+id/action_songPlayingFragment_to_playListSongsFragment"
+            app:destination="@id/playListSongsFragment" />
+        <action
+            android:id="@+id/action_songPlayingFragment_to_albumsListFragment"
+            app:destination="@id/albumsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/playListSongsFragment"
+        android:name="com.example.mividplayer.fragments.music.PlayListSongsFragment"
+        android:label="fragment_play_list_songs"
+        tools:layout="@layout/fragment_play_list_songs" >
+        <action
+            android:id="@+id/action_playListSongsFragment_to_songPlayingFragment"
+            app:destination="@id/songPlayingFragment" />
+        <action
+            android:id="@+id/action_playListSongsFragment_to_mainViewFragment"
+            app:destination="@id/mainViewFragment" />
+        <argument
+            android:name="position"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_playListSongsFragment_to_selectionFragment"
+            app:destination="@id/selectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectionFragment"
+        android:name="com.example.mividplayer.fragments.music.SelectionFragment"
+        android:label="SelectionFragment"
+        tools:layout="@layout/fragment_selection" >
+        <action
+            android:id="@+id/action_selectionFragment_to_playListSongsFragment"
+            app:destination="@id/playListSongsFragment" />
+        <argument
+            android:name="position"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/albumsListFragment"
+        android:name="com.example.mividplayer.fragments.music.AlbumsListFragment"
+        android:label="AlbumsListFragment"
+        tools:layout="@layout/fragment_albums_list">
+        <argument
+            android:name="index"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_albumsListFragment_to_songPlayingFragment"
+            app:destination="@id/songPlayingFragment" />
+    </fragment>
+
+</navigation>

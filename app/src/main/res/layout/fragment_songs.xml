@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Theme_bg"
+    tools:context=".fragments.home.SongsFragment">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/song_home_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:textSize="22sp"
+        app:titleTextColor="#041F1E"
+
+        />
+    <TextView
+        android:id="@+id/total_songs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:textColor="#041F1E"
+        android:text="Total songs"
+        android:layout_below="@id/song_home_toolbar"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/songs_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/total_songs"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@drawable/ic_scroll_thumb"
+        />
+
+
+
+
+</RelativeLayout>
+</layout>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Theme_bg">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+    <soup.neumorphism.NeumorphCardView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:id="@+id/min_15"
+            android:layout_marginStart="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_timer"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:layout_marginStart="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="15 Minutes"
+                android:layout_gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="#041F1E"
+                android:textSize="22sp"
+                />
+        </LinearLayout>
+    </soup.neumorphism.NeumorphCardView>
+        <soup.neumorphism.NeumorphCardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:id="@+id/min_30"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_timer"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:layout_marginStart="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="30 Minutes"
+                    android:layout_gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="#041F1E"
+                    android:textSize="22sp"
+                    />
+            </LinearLayout>
+        </soup.neumorphism.NeumorphCardView>
+        <soup.neumorphism.NeumorphCardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:id="@+id/min_60"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_timer"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:layout_marginStart="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="60 Minutes"
+                    android:layout_gravity="center_vertical"
+                    android:singleLine="true"
+                    android:textColor="#041F1E"
+                    android:textSize="22sp"
+                    />
+            </LinearLayout>
+        </soup.neumorphism.NeumorphCardView>
+
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>

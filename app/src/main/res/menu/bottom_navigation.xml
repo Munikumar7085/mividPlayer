@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="Home"
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home"
+        app:cnb_iconColor="@color/home"/>
+    <item
+        android:title="Songs"
+        android:id="@+id/nav_songs"
+        android:icon="@drawable/ic_songs"
+        app:cnb_iconColor="@color/songs"/>
+    <item
+        android:title="Favorites"
+        android:id="@+id/nav_Favorite"
+        android:icon="@drawable/ic_favorite_off"
+        android:iconTint="#4D5869"
+        app:cnb_iconColor="@color/favorites"/>
+    <item
+        android:title="Albums"
+        android:id="@+id/nav_albums"
+        android:icon="@drawable/ic_album"
+        app:cnb_iconColor="@color/albums"/>
+
+    <item
+        android:title="Playlist"
+        android:id="@+id/nav_playlist"
+        android:icon="@drawable/ic_playlist"
+        app:cnb_iconColor="@color/playlist"/>
+
+</menu>
