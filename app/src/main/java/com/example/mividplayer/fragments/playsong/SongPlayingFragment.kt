@@ -68,6 +68,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
         var songId=""
         var isfavorite=false
         var favIndex=-1
+        var startPlay=true
         var nowPlayingList=ArrayList<SongLayoutModel>()
 
 
@@ -126,6 +127,10 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
         binding.palyPauseCard.setOnClickListener{
             if(musicService!!.mediaPlayer!=null)
             {
+                if(!startPlay && index==0)
+                {
+                    startPlay=true
+                }
                 if(isplaying)
                 {
                     pauseMusic()
@@ -325,21 +330,15 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
         Log.i(TaG,"song position $index and loopCount = $loopCount")
         if(loopCount==0&& index== songsList.size-1)
         {
-            NowPlayingFragment.binding.pausePlay.setImageResource(R.drawable.ic_play_arrow)
-            Log.i(TaG,"list ended index : $index")
-            setLayout(R.drawable.ic_play_arrow)
-            loadimage()
-            preparePlayer()
-            isplaying=false
-            changePlayPuaseIcon(isplaying)
-            updateNowPlaying()
+            startPlay=false
         }
-        else
-        {
             isplaying=true
             changePlayPuaseIcon(isplaying)
             updateNowPlaying()
             startMusic()
+        if(index==0 && !startPlay&& loopCount==0)
+        {
+            pauseMusic()
         }
 
     }
@@ -385,6 +384,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
     private fun checkClass() {
 
         index=Integer.parseInt(args.index)
+
 
 
         when(args.address)
@@ -478,6 +478,10 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
                 initializeMusic()
             }
 
+        }
+        if(loopCount==0&& index== songsList.size-1)
+        {
+            startPlay=false
         }
     }
     private fun startMusicService()
@@ -579,6 +583,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCompletion(mp: MediaPlayer?) {
 
+        Log.i("onComplete","index : $index ,loopcount : $loopCount and size : ${songsList.size}")
         //  Toast.makeText(requireContext(),"index : $index loop = $loop loopone= $loopone",Toast.LENGTH_SHORT).show()
        if(loopCount==2)
        {
@@ -586,7 +591,10 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
        }
         else
        {
-           playnextprev(true)
+
+               playnextprev(true)
+
+
        }
 
     }

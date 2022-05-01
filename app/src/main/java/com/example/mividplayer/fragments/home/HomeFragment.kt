@@ -26,42 +26,44 @@ class HomeFragment : Fragment() {
     companion object{
         lateinit var songsCollection:ArrayList<SongLayoutModel>
     }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_home,container,false)
+        (activity as AppCompatActivity).setSupportActionBar(binding.homeToolbar)
+        binding.homeToolbar.title="Mivid Player"
+        setHasOptionsMenu(true)
         songsCollection =getsongs()
         binding.iconHistory.setOnClickListener{
             Toast.makeText(requireContext(),"You clicked history",Toast.LENGTH_SHORT).show()
         }
 
+        val c=Calendar.HOUR_OF_DAY
+        Log.i("timec","c");
+        binding.wishing.text=c.toString()
         binding.homeShuffle.setOnClickListener{
-            val fm = fragmentManager
-
-
-            for (entry in 0 until fm!!.backStackEntryCount) {
-                Log.i( "SongPlaying","Found fragment at homefragment: " + fm.getBackStackEntryAt(entry).javaClass)
-            }
+//            val fm = fragmentManager
+//
+//
+//            for (entry in 0 until fm!!.backStackEntryCount) {
+//                Log.i( "SongPlaying","Found fragment at homeFragment: " + fm.getBackStackEntryAt(entry).javaClass)
+//            }
             if(songsCollection.size>0)
             findNavController().navigate(MainViewFragmentDirections.actionMainViewFragmentToSongPlayingFragment("0","Homeshuffle"))
             else
                 Toast.makeText(requireContext(),"No songs to play",Toast.LENGTH_SHORT).show()
         }
+
         return binding.root
     }
 
     @SuppressLint("Range")
     fun getsongs():ArrayList<SongLayoutModel>
     {
-        var songsList=ArrayList<SongLayoutModel>()
+        val songsList=ArrayList<SongLayoutModel>()
 
         val selection= MediaStore.Audio.Media.IS_MUSIC+"!=0"
         val projection= arrayOf(
@@ -105,5 +107,10 @@ class HomeFragment : Fragment() {
 
 
         return songsList
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }
