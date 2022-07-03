@@ -70,7 +70,7 @@ class AlbumAdapter(val context:Context): RecyclerView.Adapter<AlbumAdapter.holde
     override fun getItemCount(): Int {
         return asyncListDiffer.currentList.size
     }
-    fun sestData(albumModel: List<AlbumModel>)
+    fun setsData(albumModel: List<AlbumModel>)
     {
         asyncListDiffer.submitList(albumModel)
     }

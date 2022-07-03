@@ -37,7 +37,7 @@
                         android:layout_height="24dp"
                         android:src="@drawable/ic_back_arrow"
                         android:layout_gravity="center"
-                        />
+                        tools:ignore="ContentDescription" />
                 </soup.neumorphism.NeumorphCardView>
 
                 <TextView
@@ -71,7 +71,7 @@
                     android:layout_height="200dp"
                     android:src="@drawable/music"
 
-                    />
+                    tools:ignore="ContentDescription" />
             </soup.neumorphism.NeumorphCardView>
 
             <androidx.recyclerview.widget.RecyclerView

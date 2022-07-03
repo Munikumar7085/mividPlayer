@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_noAdsFragment_to_sharePlaylistFragment"
             app:destination="@id/sharePlaylistFragment" />
+        <action
+            android:id="@+id/action_noAdsFragment_to_mainViewFragment"
+            app:destination="@id/mainViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/sharePlaylistFragment"
@@ -33,41 +36,9 @@
         android:label="SharePlaylistFragment"
         tools:layout="@layout/fragment_share_playlist">
         <action
-            android:id="@+id/action_sharePlaylistFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/signInFragment"
-        android:name="com.example.mividplayer.fragments.details.SignInFragment"
-        android:label="SignInFragment"
-        tools:layout="@layout/fragment_sign_in">
-        <action
-            android:id="@+id/action_signInFragment_to_signUpFragment"
-            app:destination="@id/signUpFragment" />
-        <action
-            android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
-            app:destination="@id/forgotPasswordFragment" />
-        <action
-            android:id="@+id/action_signInFragment_to_mainViewFragment"
+            android:id="@+id/action_sharePlaylistFragment_to_mainViewFragment"
             app:destination="@id/mainViewFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/signUpFragment"
-        android:name="com.example.mividplayer.fragments.details.SignUpFragment"
-        android:label="SignUpFragment"
-        tools:layout="@layout/fragment_sign_up">
-        <action
-            android:id="@+id/action_signUpFragment_to_signInFragment"
-            app:destination="@id/signInFragment" />
-        <action
-            android:id="@+id/action_signUpFragment_to_mainViewFragment"
-            app:destination="@id/mainViewFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/forgotPasswordFragment"
-        android:name="com.example.mividplayer.fragments.details.ForgotPasswordFragment"
-        android:label="ForgotPasswordFragment"
-        tools:layout="@layout/fragment_forgot_password"/>
     <fragment
         android:id="@+id/mainViewFragment"
         android:name="com.example.mividplayer.fragments.home.MainViewFragment"
@@ -85,6 +56,9 @@
         <action
             android:id="@+id/action_mainViewFragment_to_albumsListFragment"
             app:destination="@id/albumsListFragment" />
+        <action
+            android:id="@+id/action_mainViewFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
     <fragment
         android:id="@+id/songPlayingFragment"
@@ -106,6 +80,9 @@
         <action
             android:id="@+id/action_songPlayingFragment_to_albumsListFragment"
             app:destination="@id/albumsListFragment" />
+        <action
+            android:id="@+id/action_songPlayingFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
     <fragment
         android:id="@+id/playListSongsFragment"
@@ -147,6 +124,18 @@
             app:argType="string" />
         <action
             android:id="@+id/action_albumsListFragment_to_songPlayingFragment"
+            app:destination="@id/songPlayingFragment" />
+        <action
+            android:id="@+id/action_albumsListFragment_to_mainViewFragment"
+            app:destination="@id/mainViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.mividplayer.fragments.home.HistoryFragment"
+        android:label="HistoryFragment"
+        tools:layout="@layout/fragment_history">
+        <action
+            android:id="@+id/action_historyFragment_to_songPlayingFragment"
             app:destination="@id/songPlayingFragment" />
     </fragment>
 

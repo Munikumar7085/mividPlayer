@@ -19,14 +19,15 @@
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/title_enjoy_music"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Enjoy your\nmusic"
+        android:text="@string/enjoy_your_nmusic"
         android:layout_marginStart="34dp"
         android:textAppearance="@style/enjoy_your_music"
         app:layout_constraintTop_toBottomOf="@id/image_enjoy_music" />
@@ -37,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginStart="34dp"
-        android:text="Music produces a kind of pleasure which human nature cannot do without."
+        android:text="@string/music_produces_a_kind_of_pleasure_which_human_nature_cannot_do_without"
         android:textAppearance="@style/the_background"
         app:layout_constraintTop_toBottomOf="@id/title_enjoy_music" />
 
@@ -53,19 +54,22 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_marked_polygon" />
+            android:src="@drawable/ic_marked_polygon"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_unmarked_polygon" />
+            android:src="@drawable/ic_unmarked_polygon"
+            tools:ignore="ContentDescription" />
         <ImageView
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_gravity="center"
             android:layout_marginStart="5dp"
-            android:src="@drawable/ic_unmarked_polygon" />
+            android:src="@drawable/ic_unmarked_polygon"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 
@@ -86,7 +90,8 @@
             android:layout_height="66dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_next_logo" />
+            android:src="@drawable/ic_next_logo"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/enjoy_skip"
@@ -98,7 +103,7 @@
             android:text="skip"
             android:textAppearance="@style/skip"
 
-            />
+            tools:ignore="HardcodedText" />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

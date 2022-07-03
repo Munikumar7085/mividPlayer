@@ -1,16 +1,12 @@
 package com.example.mividplayer.fragments.playsong
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.ValueCallback
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -36,35 +32,35 @@ class NowPlayingFragment : Fragment()
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_now_playing,container,false)
         binding.root.visibility=View.GONE
         binding.pausePlay.setOnClickListener{
-            if(SongPlayingFragment.isplaying)
+            if(SongPlayingFragment.isPlaying)
             {
-                pausemusic()
+                pauseMusic()
             }
             else
             {
-                playmusic()
+                playMusic()
             }
         }
 
 
-        listen.setValue(SongPlayingFragment.index) //Initilize with a value
+        listen.value = SongPlayingFragment.index
 
-        listen.observe(viewLifecycleOwner, Observer {
+        listen.observe(viewLifecycleOwner) {
 
-            if(isresumed)
-            {
-                Glide.with(requireContext()).load(SongPlayingFragment.songsList[SongPlayingFragment.index].uri)
+            if (isresumed) {
+                Glide.with(requireContext())
+                    .load(SongPlayingFragment.songsList[SongPlayingFragment.index].uri)
                     .apply(RequestOptions.placeholderOf(R.drawable.music))
                     .into(binding.songImg)
             }
 
 
-        })
+        }
         binding.playNext.setOnClickListener{
-            nextprev(true)
+            nextPrev(true)
         }
         binding.playPrevious.setOnClickListener{
-            nextprev(false)
+            nextPrev(false)
         }
         binding.root.setOnClickListener{
             findNavController().navigate(MainViewFragmentDirections.actionMainViewFragmentToSongPlayingFragment(SongPlayingFragment.index.toString(),"NowPlaying"))
@@ -83,7 +79,7 @@ class NowPlayingFragment : Fragment()
                 .apply(RequestOptions.placeholderOf(R.drawable.music))
                 .into(binding.songImg)
             binding.nowPlayingSong.text=SongPlayingFragment.songsList[SongPlayingFragment.index].songName
-            if(SongPlayingFragment.isplaying==true)
+            if(SongPlayingFragment.isPlaying)
                 binding.pausePlay.setImageResource(R.drawable.ic_pause)
             else
             {
@@ -92,26 +88,26 @@ class NowPlayingFragment : Fragment()
         }
         super.onResume()
     }
-    private fun playmusic()
+    private fun playMusic()
     {
-        SongPlayingFragment.isplaying=true
+        SongPlayingFragment.isPlaying=true
         SongPlayingFragment.musicService!!.mediaPlayer!!.start()
         binding.pausePlay.setImageResource(R.drawable.ic_pause)
-        changePlayPuaseIcon(true)
-        SongPlayingFragment.musicService!!.shownotification(R.drawable.ic_pause,1F)
+        changePlayPauseIcon(true)
+        SongPlayingFragment.musicService!!.showNotification(R.drawable.ic_pause,1F)
     }
-    private fun pausemusic()
+    private fun pauseMusic()
     {
-        SongPlayingFragment.isplaying=false
+        SongPlayingFragment.isPlaying=false
         SongPlayingFragment.musicService!!.mediaPlayer!!.pause()
         binding.pausePlay.setImageResource(R.drawable.ic_play_arrow)
 
-        changePlayPuaseIcon(false)
-        SongPlayingFragment.musicService!!.shownotification(R.drawable.ic_play_arrow,0F)
+        changePlayPauseIcon(false)
+        SongPlayingFragment.musicService!!.showNotification(R.drawable.ic_play_arrow,0F)
     }
-    fun nextprev(increment:Boolean)
+    private fun nextPrev(increment:Boolean)
     {
-        SongLayoutModel.setposition(increment)
+        SongLayoutModel.setPosition(increment)
         SongPlayingFragment.musicService!!.initializeMusic()
         Glide.with(requireContext()).load(SongPlayingFragment.songsList[SongPlayingFragment.index].uri)
             .apply(RequestOptions.placeholderOf(R.drawable.music))
@@ -120,14 +116,14 @@ class NowPlayingFragment : Fragment()
         SongPlayingFragment.binding.currentPlayingSongName.text = SongPlayingFragment.songsList[SongPlayingFragment.index].songName
         SongPlayingFragment.binding.currentPlayingSingerName.text = SongPlayingFragment.songsList[SongPlayingFragment.index].artist
         SongPlayingFragment.binding.currentPlayingEndTime.text = SongLayoutModel
-            .getduration(SongPlayingFragment.songsList[SongPlayingFragment.index].duration)
-        playmusic()
+            .getDuration(SongPlayingFragment.songsList[SongPlayingFragment.index].duration)
+        playMusic()
 
 
     }
-    fun changePlayPuaseIcon(sigal:Boolean)
+    private fun changePlayPauseIcon(signal:Boolean)
     {
-        if(sigal)
+        if(signal)
         {
             SongPlayingFragment.binding.pauseBtn.visibility=View.GONE
             SongPlayingFragment.binding.playBtn.visibility=View.VISIBLE

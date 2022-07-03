@@ -4,14 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.mividplayer.R
 import com.example.mividplayer.adapters.ViewPagerAdapter
@@ -44,7 +42,7 @@ class MainViewFragment : Fragment() {
         fragmentIndex=myargs.fragment.toInt()
 
 
-        val viewPager_id_list= intArrayOf(R.id.nav_home,
+        val viewpagerIdList: IntArray = intArrayOf(R.id.nav_home,
                                           R.id.nav_songs,
                                           R.id.nav_Favorite,
                                           R.id.nav_albums,
@@ -61,7 +59,7 @@ class MainViewFragment : Fragment() {
         if(isfirst)
         {
             binding.myViewPager.currentItem=3
-            binding.myChipNavigation.setItemSelected(viewPager_id_list[3])
+            binding.myChipNavigation.setItemSelected(viewpagerIdList[3])
             binding.myViewPager.currentItem=0
             isfirst=false
         }
@@ -107,14 +105,14 @@ class MainViewFragment : Fragment() {
             }
         }
 
-        binding.myChipNavigation.setItemSelected(viewPager_id_list[fragmentIndex],true)
+        binding.myChipNavigation.setItemSelected(viewpagerIdList[fragmentIndex],true)
 
         onpagechanger=object :OnPageChangeCallback()
         {
             override fun onPageSelected(position: Int) {
 
-                binding.myChipNavigation.setItemSelected(viewPager_id_list[position])
-                Log.i("MainView","${viewPager_id_list[position]} selected")
+                binding.myChipNavigation.setItemSelected(viewpagerIdList[position])
+                Log.i("MainView","${viewpagerIdList[position]} selected")
               }
         }
         if(onpagechanger!=null)
@@ -123,40 +121,35 @@ class MainViewFragment : Fragment() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
 
-                if(binding.myViewPager.currentItem==0)
-                {
+                if(binding.myViewPager.currentItem==0) {
 
-                    val alretbuilder= context?.let { AlertDialog.Builder(it) }
-                    if (alretbuilder != null) {
-                        alretbuilder.setTitle("Exit")
-                            .setMessage("Do you want to close app?")
-                            .setPositiveButton("Yes"){_,_->
-                                val editor=(activity as AppCompatActivity).getSharedPreferences("FAVORITES", Context.MODE_PRIVATE).edit()
-                                val jsonString=GsonBuilder().create().toJson(FavoriteFragment.favoriteSongsList)
-                                editor.putString("favoritesmuni",jsonString)
+                    val alretbuilder = context?.let { AlertDialog.Builder(it) }
+                    alretbuilder?.setTitle("Exit")?.setMessage("Do you want to close app?")
+                        ?.setPositiveButton("Yes") { _, _ ->
+                            val editor = (activity as AppCompatActivity).getSharedPreferences(
+                                "FAVORITES",
+                                Context.MODE_PRIVATE
+                            ).edit()
+                            val jsonString =
+                                GsonBuilder().create().toJson(FavoriteFragment.favoriteSongsList)
+                            editor.putString("favoritesmuni", jsonString)
+                            val jsonStringPlaylist =
+                                GsonBuilder().create().toJson(MusicList.musicList)
+                            editor.putString("playlist", jsonStringPlaylist)
+                            editor.apply()
 
-                                val jsonStringPlaylist=GsonBuilder().create().toJson(MusicList.musicList)
-                                Log.i("mainca","jsonStringplay : ${jsonStringPlaylist}")
-                                editor.putString("playlist",jsonStringPlaylist)
-                                editor.apply()
-
-                                SongLayoutModel.exitApplication()
-                            }
-                            .setNegativeButton("No"){dialog,_->
-                                dialog.dismiss()
-                            }
-                    }
-                    val dialog= alretbuilder?.create()
-                    if (dialog != null) {
-                        dialog.show()
-                    }
+                            SongLayoutModel.exitApplication()
+                        }?.setNegativeButton("No") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                    alretbuilder?.create()?.show()
 
 
                 }
                 else
                 {
 
-                    binding.myChipNavigation.setItemSelected(viewPager_id_list[0])
+                    binding.myChipNavigation.setItemSelected(viewpagerIdList[0])
                     binding.myViewPager.currentItem=0
                 }
 

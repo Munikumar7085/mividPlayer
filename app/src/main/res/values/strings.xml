@@ -7,4 +7,17 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="i_agree_to_the_terms_conditions_nand_privacy_policy"><![CDATA[I agree to the Terms & Conditions\nand Privacy Policy]]></string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="todo">TODO</string>
+    <string name="albums">Albums</string>
+    <string name="playlist_name">Playlist name</string>
+    <string name="your_name">Your Name</string>
+    <string name="song_name">Song Name</string>
+    <string name="total_playlists">Total playlists :</string>
+    <string name="enjoy_your_nmusic">Enjoy your\nmusic</string>
+    <string name="music_produces_a_kind_of_pleasure_which_human_nature_cannot_do_without">Music produces a kind of pleasure which human nature cannot do without.</string>
+    <string name="total_songs">Total songs</string>
+    <string name="good_morning">Good Morning</string>
+    <string name="music_lover">Music Lover!</string>
+    <string name="shuffle">Shuffle</string>
+    <string name="random_suggestion">Random Suggestion</string>
 </resources>

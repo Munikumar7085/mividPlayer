@@ -10,7 +10,6 @@
     <soup.neumorphism.NeumorphCardView
         android:layout_width="170dp"
         android:layout_height="190dp"
-
         >
 
         <com.github.siyamed.shapeimageview.RoundedImageView
@@ -18,35 +17,36 @@
             android:id="@+id/playlist_image"
             android:layout_width="170dp"
             android:layout_height="130dp"
-            android:src="@drawable/music"
             android:layout_gravity="center_horizontal"
+            android:src="@drawable/music"
 
             app:shapeAppearanceOverlay="@style/rounded"
 
 
             />
+
         <TextView
             android:id="@+id/playlist_name"
             android:layout_width="110dp"
             android:layout_height="30dp"
-            android:text="Playlist Name"
             android:layout_gravity="bottom"
-            android:gravity="center"
             android:layout_marginStart="5dp"
-            android:textColor="@color/text_color"
-            android:singleLine="true"
             android:ellipsize="marquee"
+            android:gravity="center"
             android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="Playlist Name"
+            android:textColor="@color/text_color"
 
 
             />
+
         <ImageView
             android:id="@+id/delete_playlist"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:src="@drawable/ic_delete"
             android:layout_gravity="bottom|end"
-            />
+            android:src="@drawable/ic_delete" />
     </soup.neumorphism.NeumorphCardView>
 
 </RelativeLayout>

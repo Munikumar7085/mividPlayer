@@ -20,7 +20,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/music"
-            />
+            android:contentDescription="@string/todo" />
 
     </soup.neumorphism.NeumorphCardView>
     <TextView
@@ -28,7 +28,7 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:maxLines="2"
-        android:text="Song Name"
+        android:text="@string/song_name"
         android:textColor="@color/text_color"
         android:layout_gravity="bottom|center"
 

@@ -3,7 +3,6 @@ package com.example.mividplayer.adapters
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -64,7 +63,7 @@ class SongsAdapter(val context:Context): RecyclerView.Adapter<SongsAdapter.holde
             .into(holder.songImg)
         holder.songName.text=currsong.songName
         holder.albumName.text=currsong.albumName
-        holder.duration.text=SongLayoutModel.getduration(currsong.duration)
+        holder.duration.text=SongLayoutModel.getDuration(currsong.duration)
 
     }
 

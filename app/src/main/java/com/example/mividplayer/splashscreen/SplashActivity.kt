@@ -1,15 +1,13 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.mividplayer.splashscreen
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import com.example.mividplayer.MainActivity
 import com.example.mividplayer.R
 
@@ -24,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
 
 
         val handler=Handler()
-        handler.postDelayed(Runnable {
+        handler.postDelayed({
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
             finish()

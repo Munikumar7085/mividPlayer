@@ -19,10 +19,11 @@ import com.example.mividplayer.models.MusicList
 import com.example.mividplayer.models.SongLayoutModel
 
 
+@Suppress("DEPRECATION")
 class SelectionFragment : Fragment() {
 
 
-    val selectionArgs by navArgs<SelectionFragmentArgs>()
+    private val selectionArgs by navArgs<SelectionFragmentArgs>()
     lateinit var binding:FragmentSelectionBinding
     lateinit var adapter:SongsAdapter
     override fun onCreateView(
@@ -65,15 +66,15 @@ class SelectionFragment : Fragment() {
     }
 
     private fun checkSong(song: SongLayoutModel): Boolean {
-        MusicList.musicList.get(PlayListSongsFragment.position).songsList.forEachIndexed { index, songLayoutModel ->
+        MusicList.musicList[PlayListSongsFragment.position].songsList.forEachIndexed { index, songLayoutModel ->
             if(song.id==songLayoutModel.id)
             {
-                MusicList.musicList.get(PlayListSongsFragment.position).songsList.removeAt(index)
+                MusicList.musicList[PlayListSongsFragment.position].songsList.removeAt(index)
                 return false
             }
         }
 
-        MusicList.musicList.get(PlayListSongsFragment.position).songsList.add(song)
+        MusicList.musicList[PlayListSongsFragment.position].songsList.add(song)
         return true
     }
 

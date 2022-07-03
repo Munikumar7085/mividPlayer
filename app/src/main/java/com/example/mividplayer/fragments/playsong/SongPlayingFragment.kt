@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.mividplayer.fragments.playsong
 
 
@@ -26,47 +28,37 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.mividplayer.R
 import com.example.mividplayer.databinding.FragmentSongPlayingBinding
-import com.example.mividplayer.fragments.home.AlbumsFragment
-import com.example.mividplayer.fragments.home.FavoriteFragment
-import com.example.mividplayer.fragments.home.HomeFragment
-import com.example.mividplayer.fragments.home.SongsFragment
+import com.example.mividplayer.fragments.home.*
 import com.example.mividplayer.fragments.music.AlbumsListFragment
 import com.example.mividplayer.fragments.music.PlayListSongsFragment
 import com.example.mividplayer.models.MusicList
-
 import com.example.mividplayer.models.SongLayoutModel
 import com.example.mividplayer.services.MusicService
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import java.lang.Appendable
+
 
 
 class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletionListener{
-
-    private val TaG="SongPlaying"
-
-
     private val args by navArgs<SongPlayingFragmentArgs>()
     companion object{
         lateinit var songsList:ArrayList<SongLayoutModel>
-        var isplaying=false
+        var isPlaying =false
         var index: Int = 0
         var musicService:MusicService?=null
         var loopCount=0
         lateinit var binding:FragmentSongPlayingBinding
-        var backfragment=0
+        var backFragment=0
         var min15=false
         var min30=false
         var min60=false
         var songId=""
-        var isfavorite=false
+        var isFavorite=false
         var favIndex=-1
         var startPlay=true
         var nowPlayingList=ArrayList<SongLayoutModel>()
@@ -84,44 +76,52 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
 
 
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_song_playing,container,false)
-        setlooper(false)
-        binding.backFromCurrentPlaying.setOnClickListener{
+        setLooper(false)
+        binding.backFromCurrentPlaying.setOnClickListener {
 
-            findNavController().navigate(SongPlayingFragmentDirections.actionSongPlayingFragmentToMainViewFragment(
-                backfragment.toString()))
+            if (backFragment == 5) {
+                findNavController().navigate(SongPlayingFragmentDirections.actionSongPlayingFragmentToHistoryFragment())
+            } else
+            {
+                findNavController().navigate(SongPlayingFragmentDirections.actionSongPlayingFragmentToMainViewFragment(
+                    backFragment.toString()))
+            }
+
 
 
         }
 
         binding.playingEquilizer.setOnClickListener{
             try {
-                val equlizer=Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
-                equlizer.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, musicService!!.mediaPlayer!!.audioSessionId)
-                equlizer.putExtra(AudioEffect.EXTRA_PACKAGE_NAME,requireActivity().baseContext.packageName)
-                equlizer.putExtra(AudioEffect.EXTRA_CONTENT_TYPE,AudioEffect.CONTENT_TYPE_MUSIC)
-                startActivityForResult(equlizer,7)
+                val equalizer=Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
+                equalizer.putExtra(AudioEffect.EXTRA_AUDIO_SESSION, musicService!!.mediaPlayer!!.audioSessionId)
+                equalizer.putExtra(AudioEffect.EXTRA_PACKAGE_NAME,requireActivity().baseContext.packageName)
+                equalizer.putExtra(AudioEffect.EXTRA_CONTENT_TYPE,AudioEffect.CONTENT_TYPE_MUSIC)
+                startActivityForResult(equalizer,7)
             }
             catch (e:Exception)
             {
                 Toast.makeText(requireContext(),"${e.message}",Toast.LENGTH_SHORT).show()
-                Log.i(TaG,"excperion : ${e.message}")
             }
 
         }
         binding.repeatLayout.setOnClickListener{
-            setlooper(true)
+            setLooper(true)
         }
         binding.addFavorite.setOnClickListener{
-            if(isfavorite)
+            if(isFavorite)
             {
-                isfavorite=false
+                isFavorite=false
                 changeFavIcon()
+
                 FavoriteFragment.favoriteSongsList.removeAt(favIndex)
+                favIndex--
             }
             else{
-                isfavorite=true
+                isFavorite=true
                 changeFavIcon()
                 FavoriteFragment.favoriteSongsList.add(songsList[index])
+                favIndex++
             }
         }
         binding.palyPauseCard.setOnClickListener{
@@ -131,7 +131,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
                 {
                     startPlay=true
                 }
-                if(isplaying)
+                if(isPlaying)
                 {
                     pauseMusic()
                 }
@@ -160,10 +160,10 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
 
         })
         binding.nextSong.setOnClickListener{
-            playnextprev(true)
+            playNextPrev(true)
         }
         binding.previousSong.setOnClickListener{
-            playnextprev(false)
+            playNextPrev(false)
         }
         if(min15||min30||min60)
         {
@@ -176,7 +176,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
                 showBottomSheet()
             else
             {
-                TimerReset()
+                timerReset()
 
             }
         }
@@ -193,29 +193,21 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
         return binding.root
     }
 
-    fun TimerReset()
-    {
-        val alretbuilder= context?.let { AlertDialog.Builder(it) }
-        if (alretbuilder != null) {
-            alretbuilder.setTitle("Stop Timer")
-                .setMessage("Do you want to stop timer?")
-                .setPositiveButton("Yes"){_,_->
+    private fun timerReset() {
+        val alretbuilder = context?.let { AlertDialog.Builder(it) }
+        alretbuilder?.setTitle("Stop Timer")?.setMessage("Do you want to stop timer?")
+            ?.setPositiveButton("Yes") { _, _ ->
 
-                    min15=false
-                    min30=false
-                    min60=false
-                    binding.timerCardOn.visibility=View.GONE
-                    binding.timerCardOff.visibility=View.VISIBLE
+                min15 = false
+                min30 = false
+                min60 = false
+                binding.timerCardOn.visibility = View.GONE
+                binding.timerCardOff.visibility = View.VISIBLE
 
-                }
-                .setNegativeButton("No"){dialog,_->
-                    dialog.dismiss()
-                }
-        }
-        val dialog= alretbuilder?.create()
-        if (dialog != null) {
-            dialog.show()
-        }
+            }?.setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+        alretbuilder?.create()?.show()
 
 
     }
@@ -229,7 +221,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
             changeTimerIcon()
             timerSheet.dismiss()
             Thread{
-                Thread.sleep(15*60000)
+                Thread.sleep((15*60000).toLong())
                 if(min15)
                     SongLayoutModel.exitApplication()
             }.start()
@@ -242,7 +234,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
             changeTimerIcon()
             timerSheet.dismiss()
             Thread{
-                Thread.sleep(30*60000)
+                Thread.sleep((30*60000).toLong())
                 if(min30)
                     SongLayoutModel.exitApplication()
             }.start()
@@ -254,7 +246,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
             changeTimerIcon()
             timerSheet.dismiss()
             Thread{
-                Thread.sleep(60*60000)
+                Thread.sleep((60*60000).toLong())
                 if(min60)
                     SongLayoutModel.exitApplication()
             }.start()
@@ -272,7 +264,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
 
 
     private fun changeFavIcon() {
-        if(isfavorite)
+        if(isFavorite)
         {
             binding.favoriteOff.visibility=View.GONE
             binding.favoriteOn.visibility=View.VISIBLE
@@ -284,9 +276,9 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
         }
     }
 
-    fun changeRepeaticon(sinario:Int)
+    private fun changeRepeaticon(scenario:Int)
     {
-        when(sinario)
+        when(scenario)
         {
             0->
             {
@@ -310,7 +302,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
             }
         }
     }
-    private fun setlooper(pressed:Boolean) {
+    private fun setLooper(pressed:Boolean) {
 
         if(pressed)
         {
@@ -324,16 +316,15 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun playnextprev(increment: Boolean) {
-        SongLayoutModel.setposition(increment)
+    private fun playNextPrev(increment: Boolean) {
+        SongLayoutModel.setPosition(increment)
         Toast.makeText(requireContext(),"song position : $index",Toast.LENGTH_SHORT).show()
-        Log.i(TaG,"song position $index and loopCount = $loopCount")
         if(loopCount==0&& index== songsList.size-1)
         {
             startPlay=false
         }
-            isplaying=true
-            changePlayPuaseIcon(isplaying)
+            isPlaying=true
+            changePlayPauseIcon(isPlaying)
             updateNowPlaying()
             startMusic()
         if(index==0 && !startPlay&& loopCount==0)
@@ -342,7 +333,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
         }
 
     }
-    fun updateNowPlaying()
+    private fun updateNowPlaying()
     {
         NowPlayingFragment.binding.nowPlayingSong.text= songsList[index].songName
 
@@ -352,23 +343,23 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
 
 
     private fun playMusic() {
-        isplaying=true
-        changePlayPuaseIcon(isplaying)
-        musicService!!.shownotification(R.drawable.ic_pause,1F)
+        isPlaying=true
+        changePlayPauseIcon(isPlaying)
+        musicService!!.showNotification(R.drawable.ic_pause,1F)
         musicService!!.mediaPlayer!!.start()
 
     }
 
     private fun pauseMusic() {
-        isplaying=false
-        changePlayPuaseIcon(isplaying)
-        musicService!!.shownotification(R.drawable.ic_play_arrow,0F)
+        isPlaying=false
+        changePlayPauseIcon(isPlaying)
+        musicService!!.showNotification(R.drawable.ic_play_arrow,0F)
         musicService!!.mediaPlayer!!.pause()
 
     }
-    fun changePlayPuaseIcon(sigal:Boolean)
+    private fun changePlayPauseIcon(signal:Boolean)
     {
-        if(sigal)
+        if(signal)
         {
             binding.pauseBtn.visibility=View.GONE
             binding.playBtn.visibility=View.VISIBLE
@@ -392,9 +383,9 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
             "AlbumPlaylist"->
             {
                 songsList= ArrayList()
-                songsList.addAll(AlbumsFragment.albumsList.get(AlbumsListFragment.index).albumSongs)
+                songsList.addAll(AlbumsFragment.albumsList[AlbumsListFragment.index].albumSongs)
                 startMusicService()
-                backfragment=3
+                backFragment=3
                 initializeMusic()
 
                 nowPlayingList.clear()
@@ -403,9 +394,9 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
             "PlaylistFragment"->
             {
                 songsList= ArrayList()
-                songsList.addAll(MusicList.musicList.get(PlayListSongsFragment.position).songsList)
+                songsList.addAll(MusicList.musicList[PlayListSongsFragment.position].songsList)
                 startMusicService()
-                backfragment=4
+                backFragment=4
                 initializeMusic()
 
                 nowPlayingList.clear()
@@ -417,21 +408,21 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
                 songsList= ArrayList()
                 songsList.addAll(FavoriteFragment.favoriteSongsList)
                 startMusicService()
-                backfragment=2
+                backFragment=2
                 initializeMusic()
                 nowPlayingList.clear()
                 nowPlayingList.addAll(songsList)
             }
             "NowPlaying"->
             {
-                checkfav()
+                checkFav()
                 songsList= ArrayList()
                 songsList.addAll(nowPlayingList)
-                loadimage()
-                setlooper(false)
-                setsongName()
-                SeekBarLayout(musicService!!.mediaPlayer!!.currentPosition)
-                changePlayPuaseIcon(isplaying)
+                loadImage()
+                setLooper(false)
+                setSongName()
+                seekBarLayout(musicService!!.mediaPlayer!!.currentPosition)
+                changePlayPauseIcon(isPlaying)
 
             }
             "SearchList"->
@@ -440,7 +431,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
                 songsList= ArrayList()
                 songsList.addAll(SongsFragment.songSearchList)
                 startMusicService()
-                backfragment=1
+                backFragment=1
                 nowPlayingList.clear()
                 nowPlayingList.addAll(songsList)
 
@@ -452,7 +443,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
                 songsList= ArrayList()
                 songsList.addAll(HomeFragment.songsCollection)
                 startMusicService()
-                backfragment=1
+                backFragment=1
                 nowPlayingList.clear()
                 nowPlayingList.addAll(songsList)
                 initializeMusic()
@@ -462,7 +453,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
                 songsList= ArrayList()
                 songsList.addAll(FavoriteFragment.favoriteSongsList)
                 startMusicService()
-                backfragment=2
+                backFragment=2
                 nowPlayingList.clear()
                 nowPlayingList.addAll(songsList)
                 initializeMusic()
@@ -472,10 +463,32 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
                 songsList= ArrayList()
                 songsList.addAll(HomeFragment.songsCollection)
                 startMusicService()
-                backfragment=0
+                backFragment=0
                 nowPlayingList.clear()
                 nowPlayingList.addAll(songsList)
                 initializeMusic()
+            }
+            "HistoryAdapter"->
+            {
+                songsList= ArrayList()
+                songsList.addAll(HistoryFragment.historyList)
+                startMusicService()
+                backFragment=5
+                nowPlayingList.clear()
+                nowPlayingList.addAll(songsList)
+                initializeMusic()
+            }
+            "HistorySearchList"->
+            {
+
+                songsList= ArrayList()
+                songsList.addAll(HistoryFragment.historySearchList)
+                startMusicService()
+                backFragment=5
+                nowPlayingList.clear()
+                nowPlayingList.addAll(songsList)
+                initializeMusic()
+
             }
 
         }
@@ -492,7 +505,6 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initializeMusic() {
-        Log.i(TaG,"music service $musicService + ${Thread.currentThread().id}")
         if(musicService!=null)
         {
             if (musicService!!.mediaPlayer == null) {
@@ -507,7 +519,7 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
 
 
 
-    fun loadimage()
+    private fun loadImage()
     {
 
         Glide.with(requireContext()).load(songsList[index].uri)
@@ -517,88 +529,95 @@ class SongPlayingFragment : Fragment(),ServiceConnection,MediaPlayer.OnCompletio
 
 
     }
-    fun setsongName()
+    private fun setSongName()
     {
         binding.currentPlayingSongName.text = songsList[index].songName
         binding.currentPlayingSingerName.text = songsList[index].artist
     }
-    fun SeekBarLayout(start:Int)
+    private fun seekBarLayout(start:Int)
     {
-        binding.currentPlayingStartTime.text=SongLayoutModel.getduration(musicService!!.mediaPlayer!!.currentPosition.toLong())
+        binding.currentPlayingStartTime.text=SongLayoutModel.getDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
         binding.currentSeekbar.progress=start
         binding.currentSeekbar.max= musicService!!.mediaPlayer!!.duration
         binding.currentPlayingEndTime.text = SongLayoutModel
-            .getduration(songsList[index].duration)
+            .getDuration(songsList[index].duration)
     }
-    fun checkfav()
+    private fun checkFav()
     {
         favIndex=SongLayoutModel.isFavoriteChecker(songsList[index].id)
         changeFavIcon()
     }
-    fun setLayout(playpuseIcon:Int)
+    private fun setLayout(playPauseIcon:Int)
     {
 
-        setsongName()
+        setSongName()
 
-        checkfav()
-        isplaying = true
-        SeekBarLayout(0)
-        musicService!!.shownotification(playpuseIcon,1F)
+        checkFav()
+        isPlaying = true
+        seekBarLayout(0)
+        musicService!!.showNotification(playPauseIcon,1F)
+
 
     }
-    fun preparePlayer()
+    private fun preparePlayer()
     {
         musicService!!.mediaPlayer!!.reset()
-        musicService!!.mediaPlayer!!.setDataSource(songsList[index].path)
+        try {
+            musicService!!.mediaPlayer!!.setDataSource(songsList[index].path)
+        }
+        catch (e:Exception)
+        {
+            Log.i("setData","${e.message}")
+        }
         musicService!!.mediaPlayer!!.prepare()
     }
     @RequiresApi(Build.VERSION_CODES.O)
     fun startMusic()
     {
-        loadimage()
+        loadImage()
         preparePlayer()
         musicService!!.mediaPlayer!!.start()
         setLayout(R.drawable.ic_pause)
         musicService!!.mediaPlayer!!.setOnCompletionListener(this)
         songId= songsList[index].id
+        if(HistoryFragment.historyList.isEmpty()|| HistoryFragment.historyList[HistoryFragment.historyList.size-1].id!= songId)
+        {
+            HistoryFragment.historyList.add(songsList[index])
+        }
+
     }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-        val mybinder= service as MusicService.Mybinder
-        Log.i(TaG,"mybinder $mybinder")
-        musicService=mybinder.getService()
+        val myBinder= service as MusicService.MyBinder
+        musicService=myBinder.getService()
         initializeMusic()
         musicService!!.startRunnable()
         musicService!!.audioManager=(activity as AppCompatActivity).getSystemService(Context.AUDIO_SERVICE) as AudioManager
         musicService!!.audioManager.requestAudioFocus(musicService,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN)
-        Log.i(TaG,"service connected $musicService")
 
     }
 
     override fun onServiceDisconnected(name: ComponentName?) {
         musicService=null
-        Log.i(TaG,"service disconnected $musicService")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCompletion(mp: MediaPlayer?) {
-
-        Log.i("onComplete","index : $index ,loopcount : $loopCount and size : ${songsList.size}")
-        //  Toast.makeText(requireContext(),"index : $index loop = $loop loopone= $loopone",Toast.LENGTH_SHORT).show()
-       if(loopCount==2)
+        if(loopCount==2)
        {
            startMusic()
        }
         else
        {
 
-               playnextprev(true)
+               playNextPrev(true)
 
 
        }
 
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode==7||resultCode==RESULT_OK)

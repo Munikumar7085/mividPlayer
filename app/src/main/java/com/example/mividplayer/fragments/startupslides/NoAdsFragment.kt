@@ -25,10 +25,13 @@ class NoAdsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding=DataBindingUtil.inflate(inflater,R.layout.fragment_no_ads,container,false)
         binding.noAdsNext.setOnClickListener{
             findNavController().navigate(NoAdsFragmentDirections.actionNoAdsFragmentToSharePlaylistFragment())
+        }
+        binding.noAdsSkip.setOnClickListener {
+            findNavController().navigate(NoAdsFragmentDirections.actionNoAdsFragmentToMainViewFragment("0"))
         }
 
         return binding.root

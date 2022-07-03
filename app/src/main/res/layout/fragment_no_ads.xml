@@ -88,14 +88,16 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:src="@drawable/ic_next_logo" />
+
         <TextView
+            android:id="@+id/no_ads_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
             android:text="skip"
             android:textAppearance="@style/skip"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
 
             />
     </RelativeLayout>

@@ -50,24 +50,16 @@
             android:textColor="#041F1E"
             android:textSize="22sp"
             android:textStyle="bold" />
+
         <ImageView
             android:id="@+id/current_playing_playlist"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_playlist"
-            android:layout_toLeftOf="@id/current_playing_more"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentTop="true"
-            />
-        <ImageView
-            android:id="@+id/current_playing_more"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_more"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            />
+            android:src="@drawable/ic_playlist" />
+
     </RelativeLayout>
 
     <ScrollView
@@ -360,13 +352,13 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:orientation="horizontal"
-                android:weightSum="100"
+                android:weightSum="3"
                app:layout_constraintTop_toBottomOf="@id/current_playing_linear_controls">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="25"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <RelativeLayout
@@ -415,42 +407,12 @@
                     </RelativeLayout>
                 </RelativeLayout>
 
-                <RelativeLayout
 
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="25"
-
-                    >
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true">
-
-
-                        <soup.neumorphism.NeumorphCardView
-                            style="@style/ShapeAppearance.Neumorph.CardView"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:layout_centerInParent="true"
-                            app:neumorph_shadowElevation="3dp"
-                            app:neumorph_shapeAppearance="@style/playerImageShappe">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_shuffle_icon" />
-                        </soup.neumorphism.NeumorphCardView>
-
-                    </RelativeLayout>
-                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="25"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <RelativeLayout
@@ -507,7 +469,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="25"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <RelativeLayout

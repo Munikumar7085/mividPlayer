@@ -5,10 +5,10 @@ import com.example.mividplayer.fragments.home.FavoriteFragment
 import com.example.mividplayer.fragments.playsong.NowPlayingFragment
 import com.example.mividplayer.fragments.playsong.SongPlayingFragment
 import java.io.File
-import java.sql.Time
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
+@Suppress("DEPRECATION")
 class SongLayoutModel {
     var id :String=""
     var artist:String=""
@@ -41,14 +41,14 @@ class SongLayoutModel {
 
     fun getImgArt(path: String):ByteArray?
     {
-        val retriver=MediaMetadataRetriever()
-            retriver.setDataSource(path)
-        return retriver.embeddedPicture
+        val retriever=MediaMetadataRetriever()
+            retriever.setDataSource(path)
+        return retriever.embeddedPicture
 
     }
     companion object
     {
-        fun setposition(increment: Boolean) {
+        fun setPosition(increment: Boolean) {
 
 
             if(increment)
@@ -62,7 +62,7 @@ class SongLayoutModel {
             }
             NowPlayingFragment.listen.value=SongPlayingFragment.index
         }
-        fun getduration(duration: Long):String
+        fun getDuration(duration: Long):String
         {
             val minutes = TimeUnit.MINUTES.convert(duration,TimeUnit.MILLISECONDS)
             val seconds=(TimeUnit.SECONDS.convert(duration,TimeUnit.MILLISECONDS)-(minutes*TimeUnit.SECONDS.convert(1,TimeUnit.MINUTES)))
@@ -83,11 +83,11 @@ class SongLayoutModel {
         fun isFavoriteChecker(id: String):Int
         {
 
-            SongPlayingFragment.isfavorite=false
-           FavoriteFragment.favoriteSongsList.forEachIndexed { index, songLayoutmodel ->
-               if(id==songLayoutmodel.id)
+            SongPlayingFragment.isFavorite=false
+           FavoriteFragment.favoriteSongsList.forEachIndexed { index, song ->
+               if(id==song.id)
                {
-                   SongPlayingFragment.isfavorite=true
+                   SongPlayingFragment.isFavorite=true
                    return index
                }
            }

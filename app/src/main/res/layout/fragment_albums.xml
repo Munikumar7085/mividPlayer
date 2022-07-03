@@ -32,7 +32,7 @@
             android:textSize="18sp"
             android:layout_marginStart="20dp"
             android:textColor="#041F1E"
-            android:text="Total playlists :"
+            android:text="@string/total_playlists"
             app:layout_constraintTop_toBottomOf="@id/albums_home_toolbar"
             />
 

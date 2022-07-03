@@ -25,7 +25,7 @@
         android:id="@+id/album_name"
         android:layout_width="160dp"
         android:layout_height="30dp"
-        android:text="Albums"
+        android:text="@string/albums"
         android:textColor="@color/text_color"
         android:textAlignment="center"
         android:textSize="16sp"

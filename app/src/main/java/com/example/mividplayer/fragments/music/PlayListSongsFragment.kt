@@ -23,7 +23,7 @@ import com.example.mividplayer.models.SongLayoutModel
 class PlayListSongsFragment : Fragment() {
 
 
-   val args by navArgs<PlayListSongsFragmentArgs>()
+   private val args by navArgs<PlayListSongsFragmentArgs>()
     lateinit var binding:FragmentPlayListSongsBinding
     lateinit var adapter:SongsAdapter
 
@@ -41,8 +41,8 @@ class PlayListSongsFragment : Fragment() {
         position=Integer.parseInt(args.position)
         try {
 
-            MusicList.musicList.get(position).songsList=SongLayoutModel
-                .checkSongExist(MusicList.musicList.get(position).songsList)
+            MusicList.musicList[position].songsList=SongLayoutModel
+                .checkSongExist(MusicList.musicList[position].songsList)
         }
         catch (e:Exception)
         {
@@ -50,7 +50,7 @@ class PlayListSongsFragment : Fragment() {
         }
 
         adapter= SongsAdapter(requireContext())
-        adapter.setsData(MusicList.musicList.get(position).songsList)
+        adapter.setsData(MusicList.musicList[position].songsList)
         adapter.initItemClickListener(object :SongsAdapter.onItemClickListener{
 
 
@@ -60,7 +60,7 @@ class PlayListSongsFragment : Fragment() {
             }
 
         })
-        binding.playlistTitle.text=MusicList.musicList.get(position).playlistName
+        binding.playlistTitle.text= MusicList.musicList[position].playlistName
         binding.currentPlaylistRecyclerView.setHasFixedSize(true)
         binding.currentPlaylistRecyclerView.adapter=adapter
         binding.currentPlaylistRecyclerView.layoutManager=LinearLayoutManager(requireContext())
@@ -72,7 +72,7 @@ class PlayListSongsFragment : Fragment() {
             findNavController().navigate(PlayListSongsFragmentDirections.actionPlayListSongsFragmentToMainViewFragment("4"))
         }
         binding.removeAll.setOnClickListener{
-            MusicList.musicList.get(position).songsList.clear()
+            MusicList.musicList[position].songsList.clear()
             binding.playlistHeadImage.setImageResource(R.drawable.music)
             binding.createdOn.text=""
             adapter.notifyDataSetChanged()
@@ -85,9 +85,9 @@ class PlayListSongsFragment : Fragment() {
         if(adapter.itemCount>0)
         {
             binding.createdOn.text="Total ${adapter.itemCount} songs\n\n" +
-                    "Created on:\n${MusicList.musicList.get(position).createdOn}\n\n"+
-                    MusicList.musicList.get(position).creator
-            Glide.with(requireContext()).load(MusicList.musicList.get(position).songsList[0].uri)
+                    "Created on:\n${MusicList.musicList[position].createdOn}\n\n"+
+                    MusicList.musicList[position].creator
+            Glide.with(requireContext()).load(MusicList.musicList[position].songsList[0].uri)
                 .apply(RequestOptions.placeholderOf(R.drawable.music))
                 .into(binding.playlistHeadImage)
 

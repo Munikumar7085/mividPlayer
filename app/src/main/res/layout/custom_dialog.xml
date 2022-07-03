@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 >
 <LinearLayout android:orientation="vertical"
@@ -22,7 +23,7 @@
             app:startIconDrawable="@drawable/ic_playlist"
             app:startIconTint="@color/skin"
             app:boxStrokeColor="@color/skin"
-            android:hint="Playlist name"
+            android:hint="@string/playlist_name"
             app:boxStrokeWidth="3dp"
             android:textColorHint="@color/text_color"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -35,7 +36,9 @@
                 android:singleLine="true"
                 android:maxLength="40"
                 android:background="@color/Theme_bg"
-                android:textColor="@color/text_color"/>
+                android:textColor="@color/text_color"
+                android:autofillHints=""
+                tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </soup.neumorphism.NeumorphCardView>
@@ -55,7 +58,7 @@
                 app:startIconDrawable="@drawable/ic_person"
                 app:startIconTint="@color/skin"
                 app:boxStrokeColor="@color/skin"
-                android:hint="Your Name"
+                android:hint="@string/your_name"
                 app:boxStrokeWidth="3dp"
                 android:textColorHint="@color/text_color"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -68,7 +71,9 @@
                 android:singleLine="true"
                 android:maxLength="40"
                 android:background="@color/Theme_bg"
-                android:textColor="@color/text_color"/>
+                android:textColor="@color/text_color"
+                android:autofillHints=""
+                tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </soup.neumorphism.NeumorphCardView>

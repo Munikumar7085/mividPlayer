@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.mividplayer.R
@@ -14,8 +12,6 @@ import com.example.mividplayer.fragments.playsong.NowPlayingFragment
 import com.example.mividplayer.fragments.playsong.SongPlayingFragment
 import com.example.mividplayer.fragments.playsong.SongPlayingFragment.Companion.binding
 import com.example.mividplayer.models.SongLayoutModel
-import com.example.mividplayer.services.MusicService
-import kotlin.system.exitProcess
 
 class MusicBroadcastReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -29,11 +25,11 @@ class MusicBroadcastReceiver: BroadcastReceiver() {
         {
             MusicApplication.PREVIOUS->
             {
-                nextprev(false,context!!)
+                nextPrev(false,context!!)
             }
 
             MusicApplication.PLAY_PAUSE-> {
-                if(SongPlayingFragment.isplaying)
+                if(SongPlayingFragment.isPlaying)
                 {
                     pauseMusic()
                 }
@@ -43,7 +39,7 @@ class MusicBroadcastReceiver: BroadcastReceiver() {
                 }
             }
             MusicApplication.NEXT->{
-                nextprev(true,context!!)
+                nextPrev(true,context!!)
             }
             MusicApplication.EXIT->
             {
@@ -55,9 +51,9 @@ class MusicBroadcastReceiver: BroadcastReceiver() {
 
     }
 
-    fun changePlayPuaseIcon(sigal:Boolean)
+    private fun changePlayPauseIcon(signal:Boolean)
     {
-        if(sigal)
+        if(signal)
         {
             binding.pauseBtn.visibility=View.GONE
             binding.playBtn.visibility=View.VISIBLE
@@ -68,28 +64,28 @@ class MusicBroadcastReceiver: BroadcastReceiver() {
             binding.pauseBtn.visibility=View.VISIBLE
         }
     }
-    fun pauseMusic() {
-        SongPlayingFragment.isplaying=false
+    private fun pauseMusic() {
+        SongPlayingFragment.isPlaying=false
         SongPlayingFragment.musicService!!.mediaPlayer!!.pause()
-        SongPlayingFragment.musicService!!.shownotification(R.drawable.ic_play_arrow,0F)
-        changePlayPuaseIcon(false)
+        SongPlayingFragment.musicService!!.showNotification(R.drawable.ic_play_arrow,0F)
+        changePlayPauseIcon(false)
         NowPlayingFragment.binding.pausePlay.setImageResource(R.drawable.ic_play_arrow)
 
     }
-    fun playMusic()
+    private fun playMusic()
 
     {
-        SongPlayingFragment.isplaying=true
+        SongPlayingFragment.isPlaying=true
         SongPlayingFragment.musicService!!.mediaPlayer!!.start()
-        SongPlayingFragment.musicService!!.shownotification(R.drawable.ic_pause,1F)
-        changePlayPuaseIcon(true)
+        SongPlayingFragment.musicService!!.showNotification(R.drawable.ic_pause,1F)
+        changePlayPauseIcon(true)
         NowPlayingFragment.binding.pausePlay.setImageResource(R.drawable.ic_pause)
 
     }
-    fun nextprev(increment:Boolean,context: Context)
+    private fun nextPrev(increment:Boolean, context: Context)
     {
-        SongLayoutModel.setposition(increment)
-        changePlayPuaseIcon(SongPlayingFragment.isplaying)
+        SongLayoutModel.setPosition(increment)
+        changePlayPauseIcon(SongPlayingFragment.isPlaying)
         SongPlayingFragment.musicService!!.initializeMusic()
         Glide.with(context).load(SongPlayingFragment.songsList[SongPlayingFragment.index].uri)
             .apply(RequestOptions.placeholderOf(R.drawable.music))
@@ -101,7 +97,7 @@ class MusicBroadcastReceiver: BroadcastReceiver() {
         binding.currentPlayingSongName.text = SongPlayingFragment.songsList[SongPlayingFragment.index].songName
         binding.currentPlayingSingerName.text = SongPlayingFragment.songsList[SongPlayingFragment.index].artist
         binding.currentPlayingEndTime.text = SongLayoutModel
-            .getduration(SongPlayingFragment.songsList[SongPlayingFragment.index].duration)
+            .getDuration(SongPlayingFragment.songsList[SongPlayingFragment.index].duration)
         SongPlayingFragment.favIndex=SongLayoutModel.isFavoriteChecker(SongPlayingFragment.songsList[SongPlayingFragment.index].id)
         changeFavIcon()
 
@@ -110,7 +106,7 @@ class MusicBroadcastReceiver: BroadcastReceiver() {
 
     }
     private fun changeFavIcon() {
-        if(SongPlayingFragment.isfavorite)
+        if(SongPlayingFragment.isFavorite)
         {
             binding.favoriteOff.visibility=View.GONE
             binding.favoriteOn.visibility=View.VISIBLE

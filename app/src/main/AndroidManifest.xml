@@ -5,8 +5,12 @@
    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <application
+
+        android:requestLegacyExternalStorage="true"
         android:name=".application.MusicApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,18 +27,28 @@
             android:name=".splashscreen.SplashActivity"
             android:exported="true"
             android:theme="@style/splash">
-            <intent-filter>
+            <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".services.MusicService"/>
+        <service android:name=".services.MusicService"
+            android:exported="false"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </service>
         <receiver android:name=".receiver.MusicBroadcastReceiver"
             android:enabled="true"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
+        <receiver android:name="androidx.media.session.MediaButtonReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

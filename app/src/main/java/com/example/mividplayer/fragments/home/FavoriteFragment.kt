@@ -3,7 +3,6 @@ package com.example.mividplayer.fragments.home
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mividplayer.R
 import com.example.mividplayer.adapters.FavoriteAdapter
 import com.example.mividplayer.databinding.FragmentFavoriteBinding
-import com.example.mividplayer.fragments.playsong.SongPlayingFragment
 import com.example.mividplayer.models.SongLayoutModel
 
 
@@ -31,10 +29,9 @@ class FavoriteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
        binding=DataBindingUtil.inflate(inflater,R.layout.fragment_favorite,container,false)
         (activity as AppCompatActivity).setSupportActionBar(binding.favoriteHomeToolbar)
-        setHasOptionsMenu(true)
         favoriteSongsList=SongLayoutModel.checkSongExist(favoriteSongsList)
         binding.favoriteHomeToolbar.title="Favorite Songs"
         favoriteAdapter= FavoriteAdapter(requireContext())
@@ -65,10 +62,7 @@ class FavoriteFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.mymenu,menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+
 
 
 
